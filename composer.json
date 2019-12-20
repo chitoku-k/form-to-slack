@@ -2,6 +2,6 @@
     "require": {
         "google/recaptcha": "^1.2",
         "simonbackx/slack-php-webhook": "^1.0",
-        "vlucas/phpdotenv": "^4.0"
+        "vlucas/phpdotenv": "^4.1"
     }
 }
