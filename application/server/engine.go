@@ -32,9 +32,18 @@ func NewEngine(
 
 func (e *engine) Start() {
 	router := gin.Default()
-	router.Use(cors.New(cors.Config{
-		AllowOrigins: strings.Split(e.Environment.AllowedOrigins, " "),
-	}))
+
+	if len(e.Environment.AllowedOrigins) > 0 {
+		router.Use(cors.New(cors.Config{
+			AllowOrigins: strings.Split(e.Environment.AllowedOrigins, " "),
+		}))
+	}
+
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"code": http.StatusNotFound,
+		})
+	})
 
 	router.GET("/healthz", func(c *gin.Context) {
 		c.String(http.StatusOK, "OK")
