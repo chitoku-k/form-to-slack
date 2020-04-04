@@ -5,14 +5,14 @@ Sends form submission to Slack.
 
 ## Requirements
 
-- PHP >= 7.3 (+ composer)
+- Go
 - reCAPTCHA v3
 - Slack Webhook URL
 
 ## Installation
 
 ```sh
-$ composer install
+$ go build
 ```
 
 ```sh
