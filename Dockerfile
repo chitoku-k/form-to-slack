@@ -1,7 +1,7 @@
 FROM golang:1.14-stretch as build
 WORKDIR /usr/src
 COPY . /usr/src
-RUN CGO_ENABLED=0 go build
+RUN CGO_ENABLED=0 go build -ldflags='-s -w'
 
 FROM scratch
 ENV GIN_MODE release
