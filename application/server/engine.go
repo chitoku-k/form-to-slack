@@ -45,7 +45,7 @@ func (e *engine) Start() {
 		})
 	})
 
-	router.GET("/healthz", func(c *gin.Context) {
+	router.Any("/healthz", func(c *gin.Context) {
 		c.String(http.StatusOK, "OK")
 	})
 
