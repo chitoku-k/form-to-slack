@@ -31,7 +31,11 @@ func NewEngine(
 }
 
 func (e *engine) Start() {
-	router := gin.Default()
+	router := gin.New()
+	router.Use(gin.Recovery())
+	router.Use(gin.LoggerWithConfig(gin.LoggerConfig{
+		SkipPaths: []string{"/healthz"},
+	}))
 
 	if len(e.Environment.AllowedOrigins) > 0 {
 		router.Use(cors.New(cors.Config{
