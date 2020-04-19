@@ -1,6 +1,8 @@
 form-to-slack
 =============
 
+[![][workflow-badge]][workflow-link]
+
 Sends form submission to Slack.
 
 ## Requirements
@@ -38,3 +40,6 @@ export ALLOWED_ORIGINS=
     <textarea name="body" placeholder="Body" required></textarea>
 </form>
 ```
+
+[workflow-link]:    https://github.com/chitoku-k/form-to-slack/actions?query=branch:master
+[workflow-badge]:   https://img.shields.io/github/workflow/status/chitoku-k/form-to-slack/CI%20Workflow/master.svg?style=flat-square
