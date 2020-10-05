@@ -1,45 +1,50 @@
 package server
 
 import (
+	"context"
+	"net"
 	"net/http"
 	"strings"
 
-	"github.com/chitoku-k/form-to-slack/infrastructure/config"
 	"github.com/chitoku-k/form-to-slack/service"
 	"github.com/dpapathanasiou/go-recaptcha"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/sync/errgroup"
 )
 
 type engine struct {
-	Environment  config.Environment
-	SlackService service.SlackService
+	Port           string
+	AllowedOrigins string
+	SlackService   service.SlackService
 }
 
 type Engine interface {
-	Start()
+	Start(ctx context.Context) error
 }
 
 func NewEngine(
-	environment config.Environment,
+	port string,
+	allowedOrigins string,
 	slackService service.SlackService,
 ) Engine {
 	return &engine{
-		Environment:  environment,
-		SlackService: slackService,
+		Port:           port,
+		AllowedOrigins: allowedOrigins,
+		SlackService:   slackService,
 	}
 }
 
-func (e *engine) Start() {
+func (e *engine) Start(ctx context.Context) error {
 	router := gin.New()
 	router.Use(gin.Recovery())
 	router.Use(gin.LoggerWithConfig(gin.LoggerConfig{
 		SkipPaths: []string{"/healthz"},
 	}))
 
-	if len(e.Environment.AllowedOrigins) > 0 {
+	if len(e.AllowedOrigins) > 0 {
 		router.Use(cors.New(cors.Config{
-			AllowOrigins: strings.Split(e.Environment.AllowedOrigins, " "),
+			AllowOrigins: strings.Split(e.AllowedOrigins, " "),
 		}))
 	}
 
@@ -90,5 +95,21 @@ func (e *engine) Start() {
 		})
 	})
 
-	router.Run(":" + e.Environment.Port)
+	server := http.Server{
+		Addr:    net.JoinHostPort("", e.Port),
+		Handler: router,
+	}
+
+	var eg errgroup.Group
+	eg.Go(func() error {
+		<-ctx.Done()
+		return server.Shutdown(context.Background())
+	})
+
+	err := server.ListenAndServe()
+	if err == http.ErrServerClosed {
+		return eg.Wait()
+	}
+
+	return err
 }
