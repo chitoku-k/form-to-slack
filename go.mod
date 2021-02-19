@@ -13,7 +13,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/parnurzeal/gorequest v0.2.16 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/sirupsen/logrus v1.7.0
+	github.com/sirupsen/logrus v1.8.0
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e // indirect
 	golang.org/x/sys v0.0.0-20200331124033-c3d80250170d // indirect
