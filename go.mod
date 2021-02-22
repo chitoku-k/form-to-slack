@@ -1,6 +1,6 @@
 module github.com/chitoku-k/form-to-slack
 
-go 1.15
+go 1.16
 
 require (
 	github.com/ashwanthkumar/slack-go-webhook v0.0.0-20200209025033-430dd4e66960
@@ -16,6 +16,7 @@ require (
 	github.com/sirupsen/logrus v1.8.0
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20200331124033-c3d80250170d // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )
