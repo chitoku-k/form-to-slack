@@ -30,7 +30,7 @@ jobs:
         with:
           context: .
           cache-from: type=local,src=/tmp/buildx-cache
-          cache-to: type=local,dest=/tmp/buildx-cache.new
+          cache-to: type=local,mode=max,dest=/tmp/buildx-cache.new
           push: true
           tags: container.chitoku.jp/chitoku-k/form-to-slack
       - name: Move cache
