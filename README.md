@@ -14,7 +14,7 @@ Sends form submission to Slack.
 ## Installation
 
 ```sh
-$ go build
+$ docker buildx build .
 ```
 
 ```sh
