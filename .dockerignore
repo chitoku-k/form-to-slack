@@ -1,6 +1,8 @@
+Dockerfile
 LICENSE
 README.md
 form-to-slack
+.dockerignore
 .git
 .github
 .gitignore
