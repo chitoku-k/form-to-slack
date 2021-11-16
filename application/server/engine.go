@@ -36,6 +36,8 @@ func NewEngine(
 ) Engine {
 	return &engine{
 		Port:           port,
+		CertFile:       certFile,
+		KeyFile:        keyFile,
 		AllowedOrigins: allowedOrigins,
 		SlackService:   slackService,
 	}
