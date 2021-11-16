@@ -25,7 +25,7 @@ func main() {
 	recaptcha.Init(env.ReCaptchaSecret)
 	slackNotifier := slack.NewSlackNotifier(env)
 	slackService := service.NewSlackService(slackNotifier)
-	engine := server.NewEngine(env.Port, env.AllowedOrigins, slackService)
+	engine := server.NewEngine(env.Port, env.TLSCert, env.TLSKey, env.AllowedOrigins, slackService)
 	err = engine.Start(ctx)
 	if err != nil {
 		logrus.Fatalf("Failed to start web server: %v", err)
