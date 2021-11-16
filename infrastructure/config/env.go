@@ -9,6 +9,8 @@ import (
 type Environment struct {
 	AllowedOrigins  string
 	Port            string
+	TLSCert         string
+	TLSKey          string
 	ReCaptchaSecret string
 	SlackWebhookURL string
 }
@@ -19,6 +21,8 @@ func Get() (Environment, error) {
 
 	for k, v := range map[string]*string{
 		"ALLOWED_ORIGINS": &env.AllowedOrigins,
+		"TLS_CERT":        &env.TLSCert,
+		"TLS_KEY":         &env.TLSKey,
 	} {
 		*v = os.Getenv(k)
 	}

@@ -18,6 +18,13 @@ $ docker buildx build .
 ```
 
 ```sh
+# Port number (required)
+export PORT=8080
+
+# TLS certificate and private key (optional; if not specified, form-to-slack is served over HTTP)
+export TLS_CERT=/path/to/tls/cert
+export TLS_KEY=/path/to/tls/key
+
 # reCAPTCHA secret key (required)
 export RECAPTCHA_SECRET=
 
