@@ -12,11 +12,11 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/parnurzeal/gorequest v0.2.16 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.9.0
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect
+	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )
 
