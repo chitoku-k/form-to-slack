@@ -1,6 +1,6 @@
 module github.com/chitoku-k/form-to-slack
 
-go 1.18
+go 1.19
 
 require (
 	github.com/ashwanthkumar/slack-go-webhook v0.0.0-20200209025033-430dd4e66960
