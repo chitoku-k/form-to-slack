@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:experimental
-FROM golang:1.19.2-buster as build
+FROM golang:1.19.3-buster as build
 WORKDIR /usr/src
 COPY go.mod go.sum /usr/src/
 RUN --mount=type=cache,target=/go \
