@@ -92,7 +92,7 @@ func (e *engine) Start(ctx context.Context) error {
 			return
 		}
 
-		err = e.SlackService.Send(message)
+		err = e.SlackService.Send(ctx, message)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"code": http.StatusInternalServerError,

@@ -1,50 +1,45 @@
 package slack
 
 import (
-	"errors"
-	"strings"
+	"context"
+	"encoding/json"
+	"fmt"
 	"time"
 
-	"github.com/ashwanthkumar/slack-go-webhook"
-	"github.com/chitoku-k/form-to-slack/infrastructure/config"
 	"github.com/chitoku-k/form-to-slack/service"
+	"github.com/slack-go/slack"
 )
 
 type slackNotifier struct {
-	Environment config.Environment
+	webhookURL string
 }
 
-func NewSlackNotifier(environment config.Environment) service.SlackNotifier {
+func NewSlackNotifier(webhookURL string) service.SlackNotifier {
 	return &slackNotifier{
-		Environment: environment,
+		webhookURL: webhookURL,
 	}
 }
 
-func (s *slackNotifier) Do(message service.SlackMessage) error {
+func (s *slackNotifier) Do(ctx context.Context, message service.SlackMessage) error {
 	timestamp := time.Now().Unix()
 	author := message.Name
 	if message.Email != "" {
 		author += "（" + message.Email + "）"
 	}
 
-	errs := slack.Send(s.Environment.SlackWebhookURL, "", slack.Payload{
+	err := slack.PostWebhookContext(ctx, s.webhookURL, &slack.WebhookMessage{
 		Text: "New message has arrived:",
 		Attachments: []slack.Attachment{
 			{
-				Title:      &message.Subject,
-				Text:       &message.Body,
-				Timestamp:  &timestamp,
-				AuthorName: &author,
+				Title:      message.Subject,
+				Text:       message.Body,
+				Ts:         json.Number(fmt.Sprint(timestamp)),
+				AuthorName: author,
 			},
 		},
 	})
-
-	if len(errs) > 0 {
-		var msgs []string
-		for _, err := range errs {
-			msgs = append(msgs, err.Error())
-		}
-		return errors.New("failed to notify message: " + strings.Join(msgs, ", "))
+	if err != nil {
+		return fmt.Errorf("failed to notify message: %w", err)
 	}
 
 	return nil

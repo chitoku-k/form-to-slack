@@ -1,5 +1,9 @@
 package service
 
+import (
+	"context"
+)
+
 type SlackMessage struct {
 	Name    string `form:"name" binding:"required"`
 	Email   string `form:"email"`
@@ -8,7 +12,7 @@ type SlackMessage struct {
 }
 
 type SlackNotifier interface {
-	Do(message SlackMessage) error
+	Do(ctx context.Context, message SlackMessage) error
 }
 
 type slackService struct {
@@ -16,7 +20,7 @@ type slackService struct {
 }
 
 type SlackService interface {
-	Send(message SlackMessage) error
+	Send(ctx context.Context, message SlackMessage) error
 }
 
 func NewSlackService(notifier SlackNotifier) SlackService {
@@ -25,6 +29,6 @@ func NewSlackService(notifier SlackNotifier) SlackService {
 	}
 }
 
-func (s *slackService) Send(message SlackMessage) error {
-	return s.Notifier.Do(message)
+func (s *slackService) Send(ctx context.Context, message SlackMessage) error {
+	return s.Notifier.Do(ctx, message)
 }
