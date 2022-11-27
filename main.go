@@ -9,7 +9,6 @@ import (
 	"github.com/chitoku-k/form-to-slack/infrastructure/config"
 	"github.com/chitoku-k/form-to-slack/infrastructure/slack"
 	"github.com/chitoku-k/form-to-slack/service"
-	"github.com/dpapathanasiou/go-recaptcha"
 	"github.com/sirupsen/logrus"
 )
 
@@ -22,10 +21,9 @@ func main() {
 		logrus.Fatalf("Failed to initialize config: %v", err)
 	}
 
-	recaptcha.Init(env.ReCaptchaSecret)
 	slackNotifier := slack.NewSlackNotifier(env)
 	slackService := service.NewSlackService(slackNotifier)
-	engine := server.NewEngine(env.Port, env.TLSCert, env.TLSKey, env.AllowedOrigins, slackService)
+	engine := server.NewEngine(env.Port, env.TLSCert, env.TLSKey, env.AllowedOrigins, env.ReCaptchaSecret, slackService)
 	err = engine.Start(ctx)
 	if err != nil {
 		logrus.Fatalf("Failed to start web server: %v", err)
