@@ -9,18 +9,18 @@ import (
 	"strings"
 
 	"github.com/chitoku-k/form-to-slack/service"
-	"github.com/dpapathanasiou/go-recaptcha"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
 )
 
 type engine struct {
-	Port           string
-	CertFile       string
-	KeyFile        string
-	AllowedOrigins string
-	SlackService   service.SlackService
+	Port            string
+	CertFile        string
+	KeyFile         string
+	AllowedOrigins  string
+	ReCaptchaSecret string
+	SlackService    service.SlackService
 }
 
 type Engine interface {
@@ -32,14 +32,16 @@ func NewEngine(
 	certFile string,
 	keyFile string,
 	allowedOrigins string,
+	reCaptchaSecret string,
 	slackService service.SlackService,
 ) Engine {
 	return &engine{
-		Port:           port,
-		CertFile:       certFile,
-		KeyFile:        keyFile,
-		AllowedOrigins: allowedOrigins,
-		SlackService:   slackService,
+		Port:            port,
+		CertFile:        certFile,
+		KeyFile:         keyFile,
+		AllowedOrigins:  allowedOrigins,
+		ReCaptchaSecret: reCaptchaSecret,
+		SlackService:    slackService,
 	}
 }
 
@@ -67,7 +69,7 @@ func (e *engine) Start(ctx context.Context) error {
 	})
 
 	router.POST("/", func(c *gin.Context) {
-		result, err := recaptcha.Confirm(c.ClientIP(), c.PostForm("g-recaptcha-response"))
+		result, err := e.verifyReCaptcha(c, c.PostForm("g-recaptcha-response"))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"code": http.StatusInternalServerError,
