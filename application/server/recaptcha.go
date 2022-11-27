@@ -33,6 +33,7 @@ func (e *engine) verifyReCaptcha(ctx context.Context, response string) (bool, er
 	if err != nil {
 		return false, fmt.Errorf("failed to construct a request: %w", err)
 	}
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
