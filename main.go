@@ -21,7 +21,7 @@ func main() {
 		logrus.Fatalf("Failed to initialize config: %v", err)
 	}
 
-	slackNotifier := slack.NewSlackNotifier(env)
+	slackNotifier := slack.NewSlackNotifier(env.SlackWebhookURL)
 	slackService := service.NewSlackService(slackNotifier)
 	engine := server.NewEngine(env.Port, env.TLSCert, env.TLSKey, env.AllowedOrigins, env.ReCaptchaSecret, slackService)
 	err = engine.Start(ctx)
