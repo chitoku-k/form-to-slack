@@ -49,4 +49,4 @@ export ALLOWED_ORIGINS=
 ```
 
 [workflow-link]:    https://github.com/chitoku-k/form-to-slack/actions?query=branch:master
-[workflow-badge]:   https://img.shields.io/github/workflow/status/chitoku-k/form-to-slack/CI%20Workflow/master.svg?style=flat-square
+[workflow-badge]:   https://img.shields.io/github/actions/workflow/status/chitoku-k/form-to-slack/ci.yml?branch=master&style=flat-square
