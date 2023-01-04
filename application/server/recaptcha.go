@@ -19,17 +19,13 @@ type reCaptchaResponse struct {
 	ErrorCodes  []string  `json:"error-codes"`
 }
 
-const (
-	reCaptchaVerifyEndpoint = "https://www.google.com/recaptcha/api/siteverify"
-)
-
 func (e *engine) verifyReCaptcha(ctx context.Context, response string) (bool, error) {
 	body := url.Values{
 		"secret":   {e.ReCaptchaSecret},
 		"response": {response},
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, reCaptchaVerifyEndpoint, strings.NewReader(body.Encode()))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, e.ReCaptchaURL, strings.NewReader(body.Encode()))
 	if err != nil {
 		return false, fmt.Errorf("failed to construct a request: %w", err)
 	}
