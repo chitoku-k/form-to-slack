@@ -23,7 +23,7 @@ func main() {
 
 	slackNotifier := slack.NewSlackNotifier(env.SlackWebhookURL)
 	slackService := service.NewSlackService(slackNotifier)
-	engine := server.NewEngine(env.Port, env.TLSCert, env.TLSKey, env.AllowedOrigins, env.ReCaptchaSecret, slackService)
+	engine := server.NewEngine(env.Port, env.TLSCert, env.TLSKey, env.AllowedOrigins, env.ReCaptchaURL, env.ReCaptchaSecret, slackService)
 	err = engine.Start(ctx)
 	if err != nil {
 		logrus.Fatalf("Failed to start web server: %v", err)

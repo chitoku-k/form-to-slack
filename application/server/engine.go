@@ -19,6 +19,7 @@ type engine struct {
 	CertFile        string
 	KeyFile         string
 	AllowedOrigins  string
+	ReCaptchaURL    string
 	ReCaptchaSecret string
 	SlackService    service.SlackService
 }
@@ -32,6 +33,7 @@ func NewEngine(
 	certFile string,
 	keyFile string,
 	allowedOrigins string,
+	reCaptchaURL string,
 	reCaptchaSecret string,
 	slackService service.SlackService,
 ) Engine {
@@ -40,6 +42,7 @@ func NewEngine(
 		CertFile:        certFile,
 		KeyFile:         keyFile,
 		AllowedOrigins:  allowedOrigins,
+		ReCaptchaURL:    reCaptchaURL,
 		ReCaptchaSecret: reCaptchaSecret,
 		SlackService:    slackService,
 	}

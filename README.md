@@ -8,7 +8,7 @@ Sends form submission to Slack.
 ## Requirements
 
 - Go
-- reCAPTCHA v3
+- Secret key for a reCAPTCHA-compatible service
 - Slack Webhook URL
 
 ## Installation
@@ -24,6 +24,9 @@ export PORT=8080
 # TLS certificate and private key (optional; if not specified, form-to-slack is served over HTTP)
 export TLS_CERT=/path/to/tls/cert
 export TLS_KEY=/path/to/tls/key
+
+# reCAPTCHA verify endpoint (optional; if not specified, it defaults to reCAPTCHA)
+export RECAPTCHA_URL=https://www.google.com/recaptcha/api/siteverify
 
 # reCAPTCHA secret key (required)
 export RECAPTCHA_SECRET=
