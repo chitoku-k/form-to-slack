@@ -8,7 +8,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/sirupsen/logrus v1.9.0
-	github.com/slack-go/slack v0.12.1
+	github.com/slack-go/slack v0.12.2
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sync v0.1.0
 	golang.org/x/sys v0.5.0 // indirect
