@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
+	"os"
 	"os/signal"
-	"syscall"
 
 	"github.com/chitoku-k/form-to-slack/application/server"
 	"github.com/chitoku-k/form-to-slack/infrastructure/config"
@@ -12,8 +12,10 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var signals = []os.Signal{os.Interrupt}
+
 func main() {
-	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	ctx, stop := signal.NotifyContext(context.Background(), signals...)
 	defer stop()
 
 	env, err := config.Get()
