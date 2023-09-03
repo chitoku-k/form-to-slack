@@ -4,12 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"github.com/sirupsen/logrus"
 )
 
 type reCaptchaResponse struct {
@@ -44,7 +43,7 @@ func (e *engine) verifyReCaptcha(ctx context.Context, response string) (bool, er
 	}
 
 	if !reCaptchaRes.Success {
-		logrus.Infof("Error from reCAPTCHA: %v", reCaptchaRes.ErrorCodes)
+		slog.Info("Error from reCAPTCHA", slog.Any("error-codes", reCaptchaRes.ErrorCodes))
 	}
 	return reCaptchaRes.Success, nil
 }
