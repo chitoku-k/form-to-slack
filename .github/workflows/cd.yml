@@ -37,7 +37,6 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
           tags: |
-            ghcr.io/chitoku-k/form-to-slack:latest
             ghcr.io/chitoku-k/form-to-slack:${{ github.ref_name }}
   deploy:
     name: Deploy
