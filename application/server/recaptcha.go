@@ -34,7 +34,9 @@ func (e *engine) verifyReCaptcha(ctx context.Context, response string) (bool, er
 	if err != nil {
 		return false, fmt.Errorf("failed to verify reCAPTCHA token: %w", err)
 	}
-	defer res.Body.Close()
+	defer func() {
+		_ = res.Body.Close()
+	}()
 
 	var reCaptchaRes reCaptchaResponse
 	err = json.NewDecoder(res.Body).Decode(&reCaptchaRes)
