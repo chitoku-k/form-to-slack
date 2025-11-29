@@ -2,6 +2,8 @@ module github.com/chitoku-k/form-to-slack
 
 go 1.25
 
+toolchain go1.25.4
+
 require (
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.11.0
