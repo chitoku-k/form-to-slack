@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -10,11 +11,24 @@ import (
 	"github.com/chitoku-k/form-to-slack/infrastructure/config"
 	"github.com/chitoku-k/form-to-slack/infrastructure/slack"
 	"github.com/chitoku-k/form-to-slack/service"
+	"github.com/spf13/pflag"
 )
 
-var signals = []os.Signal{os.Interrupt}
+var (
+	signals = []os.Signal{os.Interrupt}
+	name    = "form-to-slack"
+	version = "v0.0.0-dev"
+
+	flagversion = pflag.BoolP("version", "V", false, "show version")
+)
 
 func main() {
+	pflag.Parse()
+	if *flagversion {
+		fmt.Println(name, version)
+		return
+	}
+
 	ctx, stop := signal.NotifyContext(context.Background(), signals...)
 	defer stop()
 

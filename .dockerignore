@@ -1,8 +1,11 @@
 Dockerfile
 LICENSE
 README.md
+docker-bake.hcl
 form-to-slack
+form-to-slack.exe
 .dockerignore
 .git
 .github
 .gitignore
+.golangci.yaml
