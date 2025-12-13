@@ -51,8 +51,6 @@ jobs:
         uses: azure/setup-kubectl@v4
       - name: Set up kubectl context
         uses: chitoku-k/actions/setup-kubectl-context@master
-        with:
-          namespace: monitor
       - name: Update images
         run: |
           kubectl set image --field-manager=github-actions deployment/form-to-slack api=ghcr.io/chitoku-k/form-to-slack:${{ github.ref_name }}
