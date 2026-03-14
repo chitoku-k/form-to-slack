@@ -55,4 +55,4 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           tag: ${{ inputs.tag }}
-          file: ${{ runner.temp }}/form-to-slack-${{ matrix.platform.os }}-${{ matrix.platform.arch }}.$${{ case(matrix.platform.os != 'windows', 'tar.gz', 'zip') }}
+          file: ${{ runner.temp }}/form-to-slack-${{ matrix.platform.os }}-${{ matrix.platform.arch }}.${{ case(matrix.platform.os != 'windows', 'tar.gz', 'zip') }}
