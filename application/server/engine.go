@@ -72,7 +72,7 @@ func (e *engine) Start(ctx context.Context) error {
 	})
 
 	router.POST("/", func(c *gin.Context) {
-		result, err := e.verifyReCaptcha(c, c.PostForm("g-recaptcha-response"))
+		result, err := e.verifyReCaptcha(c.Copy(), c.PostForm("g-recaptcha-response"))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"code": http.StatusInternalServerError,
@@ -87,16 +87,14 @@ func (e *engine) Start(ctx context.Context) error {
 		}
 
 		var message service.SlackMessage
-		err = c.ShouldBind(&message)
-		if err != nil {
+		if err := c.ShouldBind(&message); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"code": http.StatusBadRequest,
 			})
 			return
 		}
 
-		err = e.SlackService.Send(ctx, message)
-		if err != nil {
+		if err := e.SlackService.Send(c.Copy(), message); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"code": http.StatusInternalServerError,
 			})
