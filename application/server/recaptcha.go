@@ -2,7 +2,7 @@ package server
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/v2"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -39,8 +39,7 @@ func (e *engine) verifyReCaptcha(ctx context.Context, response string) (bool, er
 	}()
 
 	var reCaptchaRes reCaptchaResponse
-	err = json.NewDecoder(res.Body).Decode(&reCaptchaRes)
-	if err != nil {
+	if err := json.UnmarshalRead(res.Body, &reCaptchaRes); err != nil {
 		return false, fmt.Errorf("failed to decode reCAPTCHA response: %w", err)
 	}
 
