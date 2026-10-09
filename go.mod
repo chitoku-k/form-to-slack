@@ -10,7 +10,7 @@ require (
 	github.com/slack-go/slack v0.30.1
 	github.com/spf13/pflag v1.0.10
 	golang.org/x/sync v0.24.0
-	golang.org/x/sys v0.48.0
+	golang.org/x/sys v0.49.0
 )
 
 require (
