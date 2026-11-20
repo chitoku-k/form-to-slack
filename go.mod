@@ -7,7 +7,7 @@ toolchain go1.27.4
 require (
 	github.com/gin-contrib/cors v1.7.11
 	github.com/gin-gonic/gin v1.12.0
-	github.com/slack-go/slack v0.35.0
+	github.com/slack-go/slack v0.36.0
 	github.com/spf13/pflag v1.1.0
 	golang.org/x/sync v0.25.0
 	golang.org/x/sys v0.50.0
